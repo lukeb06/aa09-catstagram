@@ -6,6 +6,9 @@
 body {
     display: grid;
     place-items: center;
+    padding: 0 1rem;
+    padding-bottom: 10rem;
+    gap: 0.5rem;
 }
 
 h1 {
@@ -13,5 +16,11 @@ h1 {
 }
 
 img {
-    max-width: 50vw;
+    max-width: 25vw;
+}
+
+#commentWrapper {
+    min-height: 50vh;
+    width: 100%;
+    border: solid 1px black;
 }
