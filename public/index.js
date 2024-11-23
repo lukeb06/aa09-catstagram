@@ -15,6 +15,8 @@ async function refreshImage() {
     const imageObject = data[0];
 
     image.src = imageObject.url;
+
+    console.log(imageObject);
 }
 
 window.onload = () => {
@@ -25,7 +27,7 @@ window.onload = () => {
 
     const commentForm = document.getElementById('commentForm');
     const commentWrapper = document.getElementById('commentWrapper');
-   
+
     refreshButton.addEventListener('click', () => {
         refreshImage();
     });
@@ -43,7 +45,7 @@ window.onload = () => {
         e.preventDefault();
 
         const commentInput = document.getElementById('commentInput');
-         
+
         const comment = document.createElement('p');
         comment.textContent = commentInput.value;
 
