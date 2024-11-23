@@ -1,8 +1,6 @@
-// Your code here 
-
 const URL = 'https://api.thecatapi.com/v1/images/search';
 
-async function refreshImage() {
+async function refreshImage(firstTime = false) {
     const image = document.getElementById('image');
     const score = document.getElementById('score');
     const commentWrapper = document.getElementById('commentWrapper');
@@ -13,10 +11,24 @@ async function refreshImage() {
     const response = await fetch(URL);
     const data = await response.json();
     const imageObject = data[0];
+    let _url = imageObject.url;
 
-    image.src = imageObject.url;
 
-    console.log(imageObject);
+    if (firstTime) {
+        const cachedUrl = localStorage.getItem('url');
+        const cachedScore = localStorage.getItem('score');
+        const cachedComments = localStorage.getItem('comments');
+
+        console.log(localStorage, cachedUrl);
+
+        if (cachedUrl) _url = cachedUrl;
+        if (cachedScore) score.textContent = cachedScore;
+        if (cachedComments) commentWrapper.innerHTML = cachedComments;
+    }
+
+    localStorage.setItem('url', _url);
+
+    image.src = _url;
 }
 
 window.onload = () => {
@@ -34,10 +46,12 @@ window.onload = () => {
 
     upvoteButton.addEventListener('click', () => {
         score.textContent = +score.textContent + 1;
+        localStorage.setItem('score', score.textContent);
     });
 
     downvoteButton.addEventListener('click', () => {
         score.textContent = +score.textContent - 1;
+        localStorage.setItem('score', score.textContent);
     });
 
 
@@ -51,8 +65,10 @@ window.onload = () => {
 
         commentWrapper.appendChild(comment);
 
+        localStorage.setItem('comments', commentWrapper.innerHTML);
+
         commentInput.value = '';
     });
 
-    refreshImage();
+    refreshImage(true);
 };
