@@ -13,7 +13,6 @@ async function refreshImage(firstTime = false) {
     const imageObject = data[0];
     let _url = imageObject.url;
 
-
     if (firstTime) {
         const cachedUrl = localStorage.getItem('url');
         const cachedScore = localStorage.getItem('score');
